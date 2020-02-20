@@ -1,0 +1,110 @@
+
+@font-face {
+	font-family: 'iconfont'; /* project id 1387774 */
+	src: url('https://at.alicdn.com/t/font_1387774_k6u46036u2g.ttf') format('truetype');
+}
+.icon {
+	font-size: 24rpx;
+	font-family: iconfont;
+}
+
+page {
+	min-height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	font-size: 16px;
+}
+m-input {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.content {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	width: 100%;
+	max-width: 100%;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	background-color: #fafafa;
+	padding: 0px;
+	overflow: hidden;
+}
+.status_bar {
+	height: var(--status-bar-height);
+	min-height: 20px;
+	width: 100%;
+	z-index: 99;
+}
+.input-group {
+	margin-top: 12%;
+	position: relative;
+}
+.input-group::before {
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+	height: 0px;
+	content: '';
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+	background-color: #c8c7cc;
+}
+.input-group::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 0px;
+	content: '';
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+	background-color: #c8c7cc;
+}
+.input-row {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	position: relative;
+	font-size: 18px;
+	line-height: 40px;
+}
+.input-row .title {
+	width: 72px;
+	padding-left: 15px;
+}
+.input-row.border::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 8px;
+	height: 1px;
+	content: '';
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+	background-color: #c8c7cc;
+}
+.btn-row {
+	margin-top: 30px;
+}
+button.primary {
+	background-color: #0faeff;
+}
+
+

@@ -1,0 +1,113 @@
+
+.data-v-2d09156d .uni-collapse-cell {
+  border-radius: 20px;
+  border-bottom: none;
+}
+.data-v-2d09156d .uni-collapse {
+  border-radius: 20px;
+  border: none;
+}
+.output-view.data-v-2d09156d .uni-popup__wrapper-box {
+  border-radius: 0 !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+  padding: 0 !important;
+}
+.output-view.data-v-2d09156d .uni-drawer__content {
+  background-color: rgba(255, 255, 255, 0);
+}
+.notice.data-v-2d09156d {
+  width: 100%;
+  max-width: 100%;
+}
+.data-v-2d09156d .uni-popup__wrapper-box {
+  border-radius: 10px;
+  padding: 10px 0 !important;
+}
+.uni-tip.data-v-2d09156d {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  padding: 0px;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.uni-tip-title.data-v-2d09156d {
+  padding: 0px 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+.uni-tip-content.data-v-2d09156d {
+  text-align: center;
+  padding: 0px 15px;
+  font-size: 12px;
+  color: #666;
+}
+.uni-tip-group-button.data-v-2d09156d {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  margin-top: 20px;
+}
+.uni-tip-button.data-v-2d09156d {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #3b4144;
+}
+.scroll-Y.data-v-2d09156d {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+}
+.comdisk-view.data-v-2d09156d {
+  padding: 0 5%;
+}
+.my-text.data-v-2d09156d {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #666666;
+  font-weight: bold;
+}
+.main-body.data-v-2d09156d {
+  position: relative;
+}
+.hello.data-v-2d09156d {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.title.data-v-2d09156d {
+  color: #8f8f94;
+  margin-top: 25px;
+}
+.ul.data-v-2d09156d {
+  font-size: 15px;
+  color: #8f8f94;
+  margin-top: 25px;
+}
+.ul > view.data-v-2d09156d {
+  line-height: 25px;
+}
+

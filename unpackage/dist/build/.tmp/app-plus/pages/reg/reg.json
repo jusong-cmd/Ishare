@@ -1,0 +1,8 @@
+{
+  "bounce": "none",
+  "navigationBarTitleText": "注册",
+  "titleNView": false,
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  },
+  "component": true
+}

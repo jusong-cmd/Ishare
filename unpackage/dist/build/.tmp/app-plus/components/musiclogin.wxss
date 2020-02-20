@@ -1,0 +1,22 @@
+.music-login-view .input-group.data-v-1a396ac1 {
+  margin-top: 0;
+}
+.music-login-view .music-btn.data-v-1a396ac1 {
+  display: inline-block;
+  width: 100%;
+  padding: 0 20%;
+}
+.music-login-view .music-btn .btn-class.data-v-1a396ac1 {
+  width: 60%;
+  height: auto;
+  margin-bottom: 15px;
+}
+.music-login-view.data-v-1a396ac1 .login-input {
+  width: 80%;
+  margin: 0px auto;
+  border: #ffffff 1px solid;
+  margin-bottom: 15px;
+  border-radius: 50px;
+  background-color: #42b983;
+}
+

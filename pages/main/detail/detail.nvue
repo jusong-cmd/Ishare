@@ -1,0 +1,693 @@
+<template>
+	<view class="detail-page">
+		<div class="status_bar-view">
+			<div class="header-view">
+				<image :src="pageData.headurl||'../../../static/img/noheader.png'" resize="cover" class="header-image"></image>
+				<div class="header-tags-view">
+					<text style="color: #FFFFFF;font-size: 14px;font-weight: bold;">{{ pageData.name }}</text>
+					<div  class="tags-view" >
+						<div class="tags-item" v-if="pageData.tags==null" style="background-color: #d7422c;">
+							<text style="text-align: center;font-size: 8px;color: #FFFFFF;">未认证</text>
+						</div>
+						<div class="tags-item" v-if="pageData.tags!=null" v-for="(item,index) in pageData.tags" :key="index">
+							<text style="text-align: center;font-size: 8px;color: #FFFFFF;">{{item}}</text>
+						</div>
+					</div>
+				</div>
+				<button class="button-top-view" type="primary"><text style="font-size: 14px;color: #FFFFFF;">聊一聊</text></button>
+			</div>
+		</div>
+		<list class="scroll-v list" enableBackToTop="true" scroll-y loadmoreoffset="20">
+			<refresh class="refresh" @refresh="onrefresh" @pullingdown="onpullingdown" :display="refreshing ? 'show' : 'hide'">
+				<div class="refresh-view">
+					<image class="refresh-icon" :src="refreshIcon" :style="{ width: refreshing || pulling ? 0 : '30px' }" :class="{ 'refresh-icon-active': refreshFlag }"></image>
+					<loading-indicator class="loading-icon" animating="true" v-if="refreshing"></loading-indicator>
+					<text class="loading-text">{{ refreshText }}</text>
+				</div>
+			</refresh>
+			<cell v-if="pageData.image">
+				<swiper indicator-dots="true" class="swiper-image" style="margin-bottom: 20upx;">
+					<swiper-item v-for="(img, key) in pageData.image" :key="key">
+						<image :src="img" class="swiper-image" resize="cover" quality="original" @click.stop="prevImage(key)"></image>
+					</swiper-item>
+				</swiper>
+			</cell>
+			<cell>
+				<view class="title-text-view">
+					<text class="uni-title-view">{{ pageData.title }}</text>
+					<text class="uni-content-view">&nbsp;&nbsp;&nbsp;&nbsp;{{ pageData.text }}</text>
+				</view>
+			</cell>
+			<cell>
+				<view class="title-count-view">
+					<text class="count-view iconfont">&#xe632;</text>
+					<text class="count-view2">{{ pageData.time.substring(5, 16) }}</text>
+					<text class="iconfont count-view">&#xe612;</text>
+					<text class="count-view2">{{ pageData.viewcount }}</text>
+				</view>
+			</cell>
+			<cell v-if="pageData.video">
+				<video
+					id="myvideo"
+					ref="myvideo"
+					:src="pageData.video ? pageData.video[0] : ''"
+					:autoplay="autoPlay"
+					:loop="true"
+					direction="-90"
+					@fullscreenchange="fullscreen"
+					class="myvideo-view"
+				>
+					<!-- <div class="video-cover" v-if="fullscreens" @click.stop="">
+						<text class="iconfont icon-view">&#xe696;</text>
+					</div> -->
+				</video>
+			</cell>
+			<cell>
+				<view class="title-comment-view"><text class="title-comment">评论留言：</text></view>
+			</cell>
+			<cell v-if="CommentData.length > 0" v-for="(comment, index) in CommentData" :key="comment.id">
+				<div class="comment-item">
+					<image :src="comment.headurl||comment.qqheadurl||'../../../static/img/noheader.png'" style="width: 60upx;height:60upx ;border-radius: 30upx;margin-top: 10upx;"></image>
+					<div class="comment-item-comtent" @click.stop="repeatOne(comment)">
+						<div style="flex-direction: row;">
+							<text style="font-size: 14px;color: #666666;font-weight: bold;">{{ comment.name||comment.qqname }}</text>
+							<text class="comment-item-repeat" style="margin-left: 10upx;">{{ comment.time.substring(5, 16) }}</text>
+							<text v-if="comment.repeatat != 0" class="comment-item-repeat" style="width: 300upx;">{{ rePeat(comment.repeatat) }}</text>
+						</div>
+						<text class="comment-item-text">{{ comment.comment }}</text>
+					</div>
+					<div class="comment-item-opration">
+						<text v-if="index==0" class="opration-text">沙发</text>
+						<text v-if="index==1" class="opration-text">椅子</text>
+						<text v-if="index==2" class="opration-text">板凳</text>
+						<text v-if="index>2" class="opration-text">第{{index+1}}楼</text>
+						<text v-if="userid==comment.user" class="opration-text delete-view" style="margin-top: 10upx;color: #ff6e6b;" @click.stop="deleteComment(comment)">删除</text>
+					</div>
+				</div>
+			</cell>
+			<cell v-if="CommentData.length == 0">
+				<view class="no-comment-view"><text style="color: #999999;font-size: 14px;text-align: center;">暂无评论,还不快来抢沙发</text></view>
+			</cell>
+		</list>
+		<div class="bottom-view">
+			<div class="bottom-bottom-view" style="margin-left: 20upx;">
+				<text class="iconfont button-view2">&#xe681;</text>
+				<text class="button-view" style="padding-left: 1upx;">留言</text>
+			</div>
+			<div class="bottom-bottom-view" style="margin-left: 20upx;" @click.stop="Share()">
+				<text class="iconfont button-view2">&#xe621;</text>
+				<text class="button-view" style="padding-left: 1upx;">分享</text>
+			</div>
+			<div class="input-view">
+				<input
+					:placeholder="CommentHolder"
+					:maxlength="30"
+					confirm-type="send"
+					v-model="comment"
+					@confirm="sendCommentTo"
+					style="font-size: 12px;padding-left: 10upx;"
+				/>
+			</div>
+			<div v-if="repeat != null" @click.stop="quelRepeat()" class="button" style="margin-left: 10upx;">
+				<text style="font-size: 12px;text-align: center;color: #FFFFFF;font-weight: bold;">取消</text>
+			</div>
+			<div @click.stop="sendCommentTo()" class="button" style="margin-left: 10upx;background-image:linear-gradient(to right, #3e91f6, #3e91f6); ;">
+				<text style="font-size: 12px;text-align: center;color: #FFFFFF;font-weight: bold;">发送</text>
+			</div>
+		</div>
+	</view>
+</template>
+<script>
+import { getPageDetail, getCommentDetail, sendComment } from '@/api/getpage.js';
+export default {
+	data() {
+		return {
+			id: '',
+			userid:'',
+			type: '',
+			comment: '',
+			repeat: null,
+			account: '',
+			token: '',
+			CommentHolder: '说一下你的想法',
+			fullscreens: false,
+			autoPlay: false,
+			pulling: false,
+			refreshing: false,
+			CommentData: [],
+			refreshText: '',
+			pageData: {
+				id: null,
+				outby: '',
+				title: '',
+				text: '',
+				image: [],
+				video: null,
+				cmtcount: '',
+				viewcount: '',
+				time: '',
+				tags: null,
+				isout: '',
+				headurl: null,
+				name: ''
+			},
+			refreshIcon:
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB5QTFRFcHBw3Nzct7e39vb2ycnJioqK7e3tpqam29vb////D8oK7wAAAAp0Uk5T////////////ALLMLM8AAABxSURBVHja7JVBDoAgDASrjqj//7CJBi90iyYeOHTPMwmFZrHjYyyFYYUy1bwUZqtJIYVxhf1a6u0R7iUvWsCcrEtwJHp8MwMdvh2amHduiZD3rpWId9+BgPd7Cc2LIkPyqvlQvKxKBJ//Qwq/CacAAwDUv0a0YuKhzgAAAABJRU5ErkJggg=='
+		};
+	},
+	created() {
+		var domModule = weex.requireModule('dom');
+		domModule.addRule('fontFace', {
+			fontFamily: 'iconfont',
+			src: "url('http://at.alicdn.com/t/font_1387774_s0nje54xies.ttf')"
+		});
+	},
+	onLoad(e) {
+		this.id = e.id || '';
+		this.type = e.type || '';
+		const app = getApp();
+		var that = this;
+		this.account = app.globalData.account;
+		this.userid = app.globalData.userid;
+		this.token = app.globalData.token;
+		uni.getNetworkType({
+			success: function(res) {
+				if (res.networkType == 'wifi') {
+					that.autoPlay = true;
+				}
+			}
+		});
+	},
+	onReady() {
+		//
+		var that = this;
+		const data = {
+			token: this.token,
+			type: this.type,
+			id: this.id
+		};
+		getPageDetail(data)
+			.then(response => {
+				let res = response;
+				//console.log(res)
+				if (res.data.type == 'success' && res.data) {
+					this.pageData = res.data.data;
+				}
+			})
+			.catch(response => {
+				plus.nativeUI.toast('服务器异常');
+				//uni.hideLoading();
+			});
+		getCommentDetail(data)
+			.then(response => {
+				let res = response;
+				if (res.data.type == 'success' && res.data) {
+					this.CommentData = res.data.data;
+				}
+			})
+			.catch(response => {
+				console.log(response);
+				plus.nativeUI.toast('服务器异常');
+			});
+	},
+	methods: {
+		Share(){
+			// plus.share.sendWithSystem({content:'分享内容',href:'http://www.dcloud.io/'}, function(){
+			// 		console.log('分享成功');
+			// 	}, function(e){
+			// 		console.log('分享失败：'+JSON.stringify(e));
+			// 	});
+			uni.share({
+			    provider: "qq",
+			    type: 2,
+			    href: "http://www.jusong.top/new/share.html",
+			    title: this.pageData.title,
+			    summary: this.pageData.text,
+			    imageUrl: this.pageData.image?this.pageData.image[0]:"https://cdn.jsdelivr.net/gh/jusong-cmd/cdn/76x76.png",
+			    success: function (res) {
+			        plus.nativeUI.toast('分享成功');
+			    },
+			    fail: function (err) {
+			        plus.nativeUI.toast('分享失败');
+			    }
+			});
+		},
+		deleteComment(row){
+			const data = {
+				token: this.token,
+				type: this.type,
+				opration: 'delete',
+				id: this.id,
+				commentid:row.commentid,
+			};
+			sendComment(data)
+				.then(response => {
+					let res = response;
+					plus.nativeUI.toast(res.data.data);
+					if (res.data.type == 'success') {
+						this.comment = '';
+						this.CommentHolder = '说一下你的想法';
+						this.getComment();
+					}
+					this.quelRepeat();
+				})
+				.catch(response => {
+					console.log(response);
+					plus.nativeUI.toast('服务器异常');
+					this.quelRepeat();
+				});
+		},
+		prevImage(e) {
+			uni.previewImage({
+				urls: this.pageData.image,
+				current: e,
+				indicator: 'default'
+			});
+		},
+		quelRepeat() {
+			this.repeat = null;
+			this.CommentHolder = '说一下你的想法';
+			this.comment = '';
+		},
+		repeatOne(comment) {
+			this.repeat = comment.commentid;
+			let name=comment.name||comment.qqname
+			this.CommentHolder = '回复@' + name + '：' + comment.comment;
+		},
+		rePeat(num) {
+			let str = '';
+			let flag = false;
+			for (let i = 0; i < this.CommentData.length; i++) {
+				if (this.CommentData[i].commentid == num) {
+					let name=this.CommentData[i].name||this.CommentData[i].qqname
+					str = name + '：' + this.CommentData[i].comment;
+					flag = true;
+				}
+			}
+			if (flag) {
+				return '回复@' + str;
+			} else {
+				return '回复@xx：评论已删除';
+			}
+		},
+		sendCommentTo() {
+			const data = {
+				token: this.token,
+				type: this.type,
+				opration: 'add',
+				id: this.id,
+				comment: this.comment,
+				repeat: this.repeat
+			};
+			if(data.comment.length>20){
+				plus.nativeUI.toast('评论不得超过20字')
+				this.comment=''
+				return
+			}
+			if(data.comment==''){
+				plus.nativeUI.toast('请输入评论！')
+				return
+			}
+			sendComment(data)
+				.then(response => {
+					let res = response;
+					plus.nativeUI.toast(res.data.data);
+					if (res.data.type == 'success') {
+						this.comment = '';
+						this.CommentHolder = '说一下你的想法';
+						this.getComment();
+					}
+					this.quelRepeat();
+				})
+				.catch(response => {
+					console.log(response);
+					plus.nativeUI.toast('服务器异常');
+					this.quelRepeat();
+				});
+		},
+		fullscreen(e) {
+			this.fullscreens = e.detail.fullScreen;
+		},
+		getComment() {
+			const data = {
+				token: this.token,
+				type: this.type,
+				id: this.id
+			};
+			getCommentDetail(data).then(response => {
+				let res = response;
+				if (res.data.type == 'success' && res.data) {
+					this.CommentData = res.data.data;
+				}
+			});
+		},
+		onrefresh() {
+			if (this.refreshing) {
+				return;
+			}
+			this.refreshing = true;
+			this.refreshText = '正在刷新...';
+			const data = {
+				token: this.token,
+				type: this.type,
+				id: this.id
+			};
+			getCommentDetail(data).then(response => {
+				let res = response;
+				if (res.data.type == 'success' && res.data) {
+					this.CommentData = res.data.data;
+				}
+			});
+			getPageDetail(data)
+				.then(response => {
+					let res = response;
+					if (res.data.type == 'success' && res.data) {
+						this.pageData = res.data.data;
+					}
+					this.pulling = true;
+					this.refreshing = false;
+					this.refreshFlag = false;
+					this.refreshText = '已刷新';
+					setTimeout(() => {
+						this.pulling = false;
+					}, 500);
+				})
+				.catch(response => {
+					console.log(response);
+					plus.nativeUI.toast('服务器异常');
+					this.pulling = true;
+					this.refreshing = false;
+					this.refreshFlag = false;
+					this.refreshText = '刷新失败';
+					setTimeout(() => {
+						this.pulling = false;
+					}, 500);
+				});
+		},
+		onpullingdown(e) {
+			if (this.refreshing || this.pulling) {
+				return;
+			}
+			if (Math.abs(e.pullingDistance) > Math.abs(e.viewHeight)) {
+				this.refreshFlag = true;
+				this.refreshText = '释放立即刷新';
+			} else {
+				this.refreshFlag = false;
+				this.refreshText = '下拉可以刷新';
+			}
+		}
+	}
+};
+</script>
+<style>
+.iconfont {
+	font-family: iconfont;
+}
+.opration-text{
+	font-size: 14px;
+	color: #999999;
+	text-align: center;
+}
+.delete-view:active {
+	background-image: linear-gradient(to right, #77bbff, #77bbff);
+}
+.button {
+	width: 80upx;
+	height: 30px;
+	margin-top: 20upx;
+	background-image: linear-gradient(to right, #ffc016, #ffc016);
+	border-color: #ffffff;
+	border-width: 1upx;
+	flex-direction: column;
+	border-radius: 5px;
+	justify-content: center;
+	text-align: center;
+}
+.button-top-view{
+	margin-top: 12.5px;
+	margin-left: 20upx;
+	font-size: 14px;
+	width: 100upx;
+	/* background-image: linear-gradient(to right, #43c6ac, #f8ffae); */
+	height: 25px;
+}
+.button:active {
+	background-image: linear-gradient(to right, #77bbff, #77bbff);
+}
+.comment-item-text {
+	margin-top: 10upx;
+	font-size: 12px;
+	color: #555555;
+}
+.comment-item-repeat {
+	font-size: 14px;
+	color: #999999;
+	margin-left: 20upx;
+	text-overflow: ellipsis;
+	lines: 1;
+}
+.comment-item-comtent {
+	width: 540upx;
+	height: 100upx;
+	padding: 10upx 0upx 0 30upx;
+	flex-direction: column;
+}
+.comment-item-opration{
+	width: 120upx;
+	height: 100upx;
+	padding: 10upx 0upx 0 5upx;
+	flex-direction: column;
+}
+.comment-item {
+	width: 750upx;
+	height: 100upx;
+	background-color: #fafafa;
+	flex-direction: row;
+	margin: 10upx 0;
+	border-radius: 5px;
+	padding: 0 30upx;
+}
+.input-view {
+	margin-top: 20upx;
+	width: 300upx;
+	margin-left: 20upx;
+	background-color: #fafafa;
+	border-radius: 5px;
+	border-color: #dfe2e5;
+	border-width: 1upx;
+	height: 30px;
+}
+.button-view {
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	text-align: center;
+}
+.button-view2 {
+	font-size: 18px;
+	margin-bottom: 5upx;
+	text-align: center;
+	font-weight: bold;
+	color: #ffffff;
+}
+.bottom-bottom-view {
+	margin-top: 10upx;
+	width: 40px;
+	height: 40px;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+}
+.bottom-view {
+	width: 750upx;
+	height: 50px;
+	padding: 0 30upx;
+	flex-direction: row;
+	background-image: linear-gradient(to right, #77bbff, #3dfcb3);
+	/* justify-content: flex-end; */
+}
+.no-comment-view {
+	flex-direction: column;
+	justify-content: center;
+	width: 750upx;
+	height: 200upx;
+}
+.title-comment-view {
+	width: 750upx;
+	margin-top: 20upx;
+	padding: 0 30upx;
+	border-top-color: #dfe2e5;
+	border-top-width: 1upx;
+}
+.title-comment {
+	font-size: 16px;
+	font-weight: bold;
+	color: #666666;
+	margin-top: 20upx;
+}
+.video-cover {
+	width: 30px;
+	height: 30px;
+	border-radius: 20px;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	right: 20upx;
+	top: 181upx;
+}
+.icon-view {
+	font-size: 24px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+}
+.myvideo-view {
+	width: 750upx;
+	height: 422upx;
+	position: relative;
+}
+.detail-page {
+	flex: 1;
+	/* #ifndef MP-ALIPAY */
+	flex-direction: column;
+	/* #endif */
+	width: 750upx;
+}
+.loading-icon {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+	color: #999999;
+}
+.title-text-view {
+	width: 750upx;
+	flex-direction: column;
+	border-top-color: #dfe2e5;
+	border-top-width: 1upx;
+}
+.title-count-view {
+	width: 750upx;
+	flex-direction: row;
+	margin-top: 20upx;
+	margin-bottom: 20upx;
+	border-bottom-color: #dfe2e5;
+	border-bottom-width: 1upx;
+	padding: 0 30upx;
+}
+.count-view {
+	font-size: 12px;
+	margin-right: 5upx;
+	color: #999999;
+	line-height: 15px;
+}
+.count-view2 {
+	font-size: 12px;
+	margin-right: 10upx;
+	color: #999999;
+	line-height: 15px;
+}
+.uni-title-view {
+	font-size: 16px;
+	font-weight: bold;
+	color: #666666;
+	margin-top: 20upx;
+	padding: 0 30upx;
+}
+.uni-content-view {
+	font-size: 14px;
+	color: #999999;
+	margin-top: 20upx;
+	padding: 0 30upx;
+}
+.loading-text {
+	margin-left: 2px;
+	font-size: 16px;
+	color: #999999;
+}
+.refresh {
+	width: 750upx;
+	height: 64px;
+	justify-content: center;
+}
+.more-view {
+	width: 750upx;
+	height: 30px;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+}
+
+.refresh-view {
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.refresh-icon {
+	width: 30px;
+	height: 30px;
+	transition-duration: 0.5s;
+	transition-property: transform;
+	transform: rotate(0deg);
+	transform-origin: 15px 15px;
+}
+
+.refresh-icon-active {
+	transform: rotate(180deg);
+}
+.scroll-v {
+	flex: 1;
+	/* #ifndef MP-ALIPAY */
+	flex-direction: column;
+	/* #endif */
+	width: 750upx;
+}
+.header-view {
+	width: 750upx;
+	height: 50px;
+	flex-direction: row;
+	margin-top: 30px;
+}
+.header-tags-view {
+	width: 480upx;
+	margin-top: 5px;
+	padding-left: 100upx;
+	height: 40px;
+	flex-direction: column;
+}
+.tags-view{
+	width: 620upx;
+	margin-top: 6px;
+	height: 20px;
+	flex-direction: row;
+}
+.tags-item{
+	height: 16px;
+	width: 85upx;
+	padding: 1upx;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 5px;
+	margin-right: 20upx;
+	background-color: #42b983;
+	border-color: #FFFFFF;
+	border-width: 1upx;
+}
+.header-image {
+	width: 40px;
+	height: 40px;
+	margin-top: 5px;
+	border-radius: 40px;
+	margin-left: 50upx;
+}
+.swiper-image {
+	width: 750upx;
+	height: 563upx;
+}
+.status_bar-view {
+	width: 750upx;
+	height: 80px;
+	background-image: linear-gradient(to right, #77bbff, #3dfcb3);
+}
+</style>

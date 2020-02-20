@@ -1,0 +1,8 @@
+{
+  "bounce": "none",
+  "navigationBarTitleText": "找回密码",
+  "titleNView": false,
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

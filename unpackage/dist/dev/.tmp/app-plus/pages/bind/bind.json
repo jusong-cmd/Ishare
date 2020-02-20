@@ -1,0 +1,7 @@
+{
+  "bounce": "none",
+  "navigationBarTitleText": "绑定详情",
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

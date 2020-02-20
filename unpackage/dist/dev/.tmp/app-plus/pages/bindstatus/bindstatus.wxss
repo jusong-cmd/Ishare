@@ -1,0 +1,140 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+page.data-v-0c607f0a {
+  background-color: #f4f5f6;
+  height: 100%;
+  font-size: 28rpx;
+}
+.image-view-info.data-v-0c607f0a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.qq-img.data-v-0c607f0a {
+  background-image: -webkit-linear-gradient(left, #0c62ff, #c545ff) !important;
+  background-image: linear-gradient(to right, #0c62ff, #c545ff) !important;
+}
+.disk-img.data-v-0c607f0a {
+  background-image: -webkit-linear-gradient(left, #fa9004, #ffdd3e) !important;
+  background-image: linear-gradient(to right, #fa9004, #ffdd3e) !important;
+}
+.font-item-view.data-v-0c607f0a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  font-size: 14px;
+  color: #ffffff;
+}
+.comment-view.data-v-0c607f0a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  width: 250rpx;
+}
+.center-view.data-v-0c607f0a {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.font-view.data-v-0c607f0a {
+  display: inline-block;
+  width: 150rpx;
+  border-radius: 50%;
+  font-size: 90rpx;
+  color: #ffffff;
+  text-align: center;
+  border: 1px solid #ffffff;
+  background-color: pink;
+  margin-left: 50rpx;
+  margin-top: 65rpx;
+  height: 150rpx;
+  background-image: -webkit-linear-gradient(left, #77bbff, #3dfcb3);
+  background-image: linear-gradient(to right, #77bbff, #3dfcb3);
+  line-height: 150rpx;
+}
+.inner.data-v-0c607f0a {
+  background-image: -webkit-linear-gradient(left, #ff5673, #ff3add);
+  background-image: linear-gradient(to right, #ff5673, #ff3add);
+}
+.bindstatus-view.data-v-0c607f0a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding: 30rpx 30rpx;
+}
+.bindstatus-view .phone-check.data-v-0c607f0a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    height: 300rpx;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    box-shadow: 0px 0px 5px #666666;
+    border-radius: 5px;
+    width: 100%;
+    background-image: -webkit-linear-gradient(left, #ff5673, #ff3add);
+    background-image: linear-gradient(to right, #ff5673, #ff3add);
+}
+.bindstatus-view .student-check.data-v-0c607f0a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    margin-top: 50rpx;
+    height: 300rpx;
+    box-shadow: 0px 0px 5px #666666;
+    border-radius: 5px;
+    width: 100%;
+    background-color: red;
+    background-image: -webkit-linear-gradient(left, #77bbff, #3dfcb3);
+    background-image: linear-gradient(to right, #77bbff, #3dfcb3);
+}
+

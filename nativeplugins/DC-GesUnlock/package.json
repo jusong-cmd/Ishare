@@ -1,0 +1,23 @@
+{
+	"name": "DCGesUnlock",
+	"id": "DC-GesUnlock",
+	"version": "1.0.0",
+	"description": "手势解锁插件",
+	"_dp_type":"nativeplugin",
+	"_dp_nativeplugin":{
+		"ios": {
+			"plugins": [
+				{
+					"type": "module",
+					"name": "DC-GesUnlock",
+					"class": "DCGesUnLockModule"
+				}
+			],
+			"integrateType": "library",
+			"deploymentTarget": "8.0",
+			"resources": [
+				"DC-GesUnlock.bundle"
+			]
+		}
+	}
+}

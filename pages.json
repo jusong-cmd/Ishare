@@ -1,0 +1,192 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页,
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"titleNView": false,
+				"bounce": "none" //关闭窗口回弹效果
+			}
+		},
+		{
+			"path": "pages/main/main",
+			"style": {
+				"navigationBarTitleText": "IShare",
+				"bounce": "none", //关闭窗口回弹效果
+				"titleNView": {
+					"autoBackButton": false,
+					"buttons": [ //原生标题栏按钮配置,
+						{
+							"type": "none",
+							"color": "#fff",
+							"text": "\ue601",
+							"fontSrc": "/static/fonts/iconfont.ttf",
+							"float": "left",
+							"width": "auto"
+						},
+						{
+							"type": "none",
+							"color": "#fff",
+							"text": "\ue60a",
+							"fontSrc": "/static/fonts/iconfont.ttf",
+							"float": "left",
+							"width": "auto"
+						}
+					]
+				}
+			}
+		},
+		{
+			"path": "pages/comdisk/comdisk",
+			"style": {
+				"navigationBarTitleText": "资源分享",
+				"scrollIndicator": "none",
+				"bounce": "none",
+				// "titleNView": false
+				"titleNView": {
+					"bounce": "none", //关闭窗口回弹效果
+					"buttons": [ //原生标题栏按钮配置,
+						{
+							"type": "none",
+							"color": "#fff",
+							"text": "\ue602",
+							"fontSrc": "/static/fonts/iconfont.ttf",
+							"float": "right",
+							"width": "auto"
+						}
+					]
+				}
+			}
+		},
+		{
+			"path": "pages/prvdisk/prvdisk",
+			"style": {
+				"navigationBarTitleText": "私人云盘",
+				"scrollIndicator": "none",
+				"bounce": "none",
+				// "titleNView": false
+				"titleNView": {
+					"bounce": "none", //关闭窗口回弹效果
+					"buttons": [ //原生标题栏按钮配置,
+						{
+							"type": "none",
+							"color": "#fff",
+							"text": "\ue601",
+							"fontSrc": "/static/fonts/iconfont.ttf",
+							"float": "right",
+							"width": "auto"
+						}
+					]
+				}
+			}
+		},
+		{
+			"path": "pages/reg/reg",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "注册",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/pwd/pwd",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "找回密码",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}, {
+			"path": "pages/chat/HM-chat",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "聊天室",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/info/index",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "播放器",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/product/product",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "发布列表",
+				"transparentTitle": "auto"
+			}
+		}, {
+			"path": "pages/output/output",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "发布"
+			}
+		}, {
+			"path": "pages/upload/upload",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "上传文件"
+			}
+		}, {
+			"path": "pages/main/detail/detail",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "详情",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/userInfo/userInfo",
+			"style": {
+				"bounce": "none",
+				"transparentTitle": "auto"
+			}
+		}, {
+			"path": "pages/bindstatus/bindstatus",
+			"style": {
+				"bounce": "none",
+				"navigationBarTitleText": "认证详情"
+			}
+		}
+	    ,{
+            "path" : "pages/bind/bind",
+            "style" : {
+				"bounce": "none",
+				"navigationBarTitleText": "绑定详情"}
+        }
+    ],
+	"tabBar": {
+		"midButton": {
+			"iconPath": "static/img/sendOut.png",
+			"iconWidth": "45px",
+			"text": "立即发布",
+			"height": "80px"
+		},
+		"list": [{
+				"pagePath": "pages/main/main",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/comdisk/comdisk",
+				"text": "资源分享"
+			}
+			// {
+			// 	"pagePath": "pages/product/product",
+			// 	"text": "发布列表"
+			// },
+			// {
+			// 	"pagePath": "pages/comdisk/comdisk",
+			// 	"text": "资源分享"
+			// }
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#0faeff",
+		"backgroundColor": "#fafafa"
+	}
+}

@@ -1,0 +1,9 @@
+{
+  "bounce": "none",
+  "transparentTitle": "auto",
+  "usingComponents": {
+    "uni-list": "/components/uni-ui/uni-list/uni-list",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item",
+    "avatar": "/components/yq-avatar/yq-avatar"
+  }
+}

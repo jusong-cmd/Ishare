@@ -1,0 +1,30 @@
+{
+  "navigationBarTitleText": "资源分享",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "titleNView": {
+    "bounce": "none",
+    "buttons": [
+      {
+        "type": "none",
+        "color": "#fff",
+        "text": "",
+        "fontSrc": "/static/fonts/iconfont.ttf",
+        "float": "right",
+        "width": "auto"
+      }
+    ]
+  },
+  "usingComponents": {
+    "uni-popup": "/components/uni-ui/uni-popup/uni-popup",
+    "uni-collapse": "/components/uni-ui/uni-collapse/uni-collapse",
+    "uni-collapse-item": "/components/uni-ui/uni-collapse-item/uni-collapse-item",
+    "uni-notice-bar": "/components/uni-ui/uni-notice-bar/uni-notice-bar",
+    "uni-list": "/components/uni-ui/uni-list/uni-list",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item",
+    "uni-swipe-action": "/components/uni-ui/uni-swipe-action/uni-swipe-action",
+    "uni-swipe-action-item": "/components/uni-ui/uni-swipe-action-item/uni-swipe-action-item",
+    "musiclogin": "/components/musiclogin",
+    "l-file": "/components/l-file/l-file"
+  }
+}

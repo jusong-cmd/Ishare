@@ -1,0 +1,9 @@
+{
+  "bounce": "none",
+  "navigationBarTitleText": "发布",
+  "usingComponents": {
+    "choose": "/components/image/choose",
+    "compress": "/components/image/compress",
+    "uni-popup": "/components/uni-ui/uni-popup/uni-popup"
+  }
+}

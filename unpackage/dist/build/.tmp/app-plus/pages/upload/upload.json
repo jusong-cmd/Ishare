@@ -1,0 +1,7 @@
+{
+  "bounce": "none",
+  "navigationBarTitleText": "上传文件",
+  "usingComponents": {
+    "l-file": "/components/l-file/l-file"
+  }
+}
